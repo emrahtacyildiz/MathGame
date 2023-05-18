@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<header class="container bg-black bg-opacity-50 text-center mt-1 pb-1">
+    <h1 class="display-4 text-white">MATEMATİK OYUNU</h1>
+</header>
+<main>
+    <section class="container bg-gradient text-center mt-1 pb-1 pt-3">
+        <button class="btn-dark btn-lg mt-1 mb-3" value="basla" id="btnBasla">BAŞLA</button>
+        <button class="btn-dark btn-lg mt-1 mb-3" value="durdur" id="btnDurdur">DURDUR</button>
+    </section>
+    <section class="container bg-dark text-center">
+        <section class="row pt-3 align-items-center">
+            <section class="col-5 bg-dark">
+                <p class="display-3 text-white mt-3" id="txtSoru"></p>
+            </section>
+            <section class="col-2 bg-black">
+                <p class="display-3 text-white mt-3">=</p>
+            </section>
+            <section class="col-5 bg-dark text-center">
+                <input class="text-center" type="number" id="txtCevap" placeholder="CEVAP" />
+                <button class="btn-dark btn-lg  mb-3" value="gonder" id="btnGonder">GÖNDER</button>
+            </section>
+        </section>
+
+        <div class="modal fade" id="sonucBildir" tabindex="-1" role="dialog" aria-labelledby="sonucBildirBaslik" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sonucBildirBaslik">Oyun Bitti!</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p id="sonucBildirBody"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="modalKapat">Kapat</button>
+                        <button type="button" class="btn btn-dark" id="modalRestart">Yeniden Oyna</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="row mt-1 p-1">
+            <div class="col-4"></div>
+            <section class="col-4 text-center d-flex">
+                <p id="dogru" class="sayacD m-3">0</p>
+                <p id="yanlis" class="sayacY m-3">0</p>
+            </section>
+            <div class="col-4"></div>
+        </section>
+
+        <!-- Modal dogruCevap-->
+        <div class="modal fade" id="modalDogru" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Tebrikler!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       Cevabın doğru! Harikasın!
+                    </div>
+                    <div class="modal-footer"> </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal yanlisCevap-->
+        <div class="modal fade" id="modalYanlis" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Maalesef!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalYanlisBody"></div>
+                    <div class="modal-footer"> </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="row mt-1 p-1">
+        <div class="col-12 display-3 text-center text-white-50">
+            <label id="minutes">00</label>&middot;<label id="seconds">00</label>
+        </div>
+    </section>
+
+
+</main>
