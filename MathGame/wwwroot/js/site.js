@@ -1,55 +1,55 @@
 ﻿
 $(document).ready(function firstStart() {
     var valString;
-    let dogruCevap = 0;
-    let yanlisCevap = 0;
+    let trueAnswer = 0;
+    let falseAnswer = 0;
     let intervalId;
-    let soru;
+    let question;
 
-    $("#txtSoru").text("");
-    $("#txtCevap").text("");
+    $("#txtQuestion").text("");
+    $("#txtAnswer").text("");
 
-    var rastgeleSayi1 = Math.floor(Math.random() * 10) + 1;
-    var rastgeleSayi2 = Math.floor(Math.random() * 10) + 1;
-    var islemIsareti = Math.floor(Math.random() * 4);
+    var number1 = Math.floor(Math.random() * 10) + 1;
+    var number2 = Math.floor(Math.random() * 10) + 1;
+    var operationMark = Math.floor(Math.random() * 4);
 
-    $("#btnBasla").prop("disabled", false);
-    $("#btnDurdur").prop("disabled", true);
-    $("#btnGonder").prop("disabled", true);
-    $("#txtCevap").prop("disabled", true);
+    $("#btnStart").prop("disabled", false);
+    $("#btnStop").prop("disabled", true);
+    $("#btnSend").prop("disabled", true);
+    $("#txtAnswer").prop("disabled", true);
 
 });
 
-function islem() {
-    rastgeleSayi1 = Math.floor(Math.random() * 10) + 1;
-    rastgeleSayi2 = Math.floor(Math.random() * 10) + 1;
-    islemIsareti = Math.floor(Math.random() * 4);
+function operation() {
+    number1 = Math.floor(Math.random() * 10) + 1;
+    number2 = Math.floor(Math.random() * 10) + 1;
+    operationMark = Math.floor(Math.random() * 4);
 
-    switch (islemIsareti) {
+    switch (operationMark) {
         case 0:
-            soru = `${rastgeleSayi1} + ${rastgeleSayi2}`;
+            question = `${number1} + ${number2}`;
             break;
         case 1:
-            soru = `${rastgeleSayi1 + rastgeleSayi2} - ${rastgeleSayi2}`;
+            question = `${number1 + number2} - ${number2}`;
             break;
         case 2:
-            soru = `${rastgeleSayi1} x ${rastgeleSayi2}`;
+            question = `${number1} x ${number2}`;
             break;
         case 3:
-            soru = `${rastgeleSayi1 * rastgeleSayi2} / ${rastgeleSayi2}`;
+            question = `${number1 * number2} / ${number2}`;
             break;
     }
 
-    return soru;
+    return question;
 }
 
-$("#btnBasla").click(function basla() {
-    $("#btnBasla").prop("disabled", true);
-    $("#btnDurdur").prop("disabled", false);
-    $("#btnGonder").prop("disabled", false);
-    $("#txtCevap").prop("disabled", false);
+$("#btnStart").click(function basla() {
+    $("#btnStart").prop("disabled", true);
+    $("#btnStop").prop("disabled", false);
+    $("#btnSend").prop("disabled", false);
+    $("#txtAnswer").prop("disabled", false);
 
-    $("#txtSoru").text(islem());
+    $("#txtQuestion").text(operation());
 
     startTimer();
 });
@@ -76,43 +76,43 @@ function startTimer() {
     }
 }
 
-$("#btnGonder").click(function () {
-    var kullaniciCevabi = parseInt($("#txtCevap").val());
-    if (soru == kullaniciCevabi) {
-        dogruCevap++;
-        /*$('#modalDogru').modal('show');*/
+$("#btnSend").click(function () {
+    var userAnswer = parseInt($("#txtAnswer").val());
+    if (question === userAnswer) {
+        trueAnswer++;
+        /*$('#modaltrue').modal('show');*/
         /*basla();*/
     } else {
-        yanlisCevap++;
-        /*$('#modalYanlis').modal('show');*/
+        falseAnswer++;
+        /*$('#modalfalse').modal('show');*/
         /*basla();*/
     }
 });
 
-$("#btnDurdur").click(function bitir() {
+$("#btnStop").click(function bitir() {
 
     clearInterval(intervalId);
 
     let minutes = $("#minutes");
     let seconds = $("#seconds");   
 
-    //$("#sonucBildirBody").text(`${minutes}.${seconds} zamanda,\n
-    //${dogruCevap} doğru, ${yanlisCevap} yanlış cevap verdin!\n
+    //$("#resultBody").text(`${minutes}.${seconds} zamanda,\n
+    //${trueAnswer} doğru, ${falseAnswer} yanlış cevap verdin!\n
     //Tekrar denemek ister misin?`);
 
-    //$("#modalKapat").click(firstStart());
+    //$("#modalClose").click(firstStart());
     //$("#modalRestart").click(basla());
 
-    $('#sonucBildir').modal('show');
+    $('#result').modal('show');
 
-    $("#btnBasla").prop("disabled", false);
-    $("#btnDurdur").prop("disabled", true);
-    $("#btnGonder").prop("disabled", true);
-    $("#txtCevap").prop("disabled", true);
+    $("#btnStart").prop("disabled", false);
+    $("#btnStop").prop("disabled", true);
+    $("#btnSend").prop("disabled", true);
+    $("#txtAnswer").prop("disabled", true);
 
     
     $("#minutes").text("00");
     $("#seconds").text("00");
-    dogruCevap = 0;
-    yanlisCevap = 0;
+    trueAnswer = 0;
+    falseAnswer = 0;
 });
