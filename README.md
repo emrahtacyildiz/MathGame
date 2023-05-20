@@ -8,6 +8,8 @@ In the meantime a **timer** starts and counts the time you spend.
 
 At the end, by clicking the **stop** button game stops and gives you your time and correct and wrong answers.
 
+![Image](https://ibb.co/fpJPyFz)
+
 ---
 
 ```
