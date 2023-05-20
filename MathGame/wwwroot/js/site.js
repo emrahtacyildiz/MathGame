@@ -1,10 +1,15 @@
 ﻿
-$(document).ready(function firstStart() {
+$(document).ready(function () {
+    firstStart();
+});
+
+function firstStart() {
     var valString;
-    let trueAnswer = 0;
-    let falseAnswer = 0;
+    let correctAnswer = 0;
+    let wrongAnswer = 0;
     let intervalId;
     let question;
+    
 
     $("#txtQuestion").text("");
     $("#txtAnswer").text("");
@@ -18,7 +23,7 @@ $(document).ready(function firstStart() {
     $("#btnSend").prop("disabled", true);
     $("#txtAnswer").prop("disabled", true);
 
-});
+}
 
 function operation() {
     number1 = Math.floor(Math.random() * 10) + 1;
@@ -43,14 +48,18 @@ function operation() {
     return question;
 }
 
-$("#btnStart").click(function basla() {
+function start() {
     $("#btnStart").prop("disabled", true);
     $("#btnStop").prop("disabled", false);
     $("#btnSend").prop("disabled", false);
     $("#txtAnswer").prop("disabled", false);
 
     $("#txtQuestion").text(operation());
+    $("#txtAnswer").focus();
+}
 
+$("#btnStart").click(function () {
+    start();
     startTimer();
 });
 
@@ -76,43 +85,59 @@ function startTimer() {
     }
 }
 
-$("#btnSend").click(function () {
+function send() {
+    var questionInt = eval(question);
     var userAnswer = parseInt($("#txtAnswer").val());
-    if (question === userAnswer) {
-        trueAnswer++;
-        /*$('#modaltrue').modal('show');*/
-        /*basla();*/
+    correctAnswer = parseInt($("#correctAnswer").text());
+    wrongAnswer = parseInt($("#wrongAnswer").text());
+    if (questionInt === userAnswer) {
+        correctAnswer++;
+        $("#correctAnswer").text(correctAnswer);
+        $('#modalCorrect').modal('show');
+        $("#txtAnswer").val("");
+        start();
     } else {
-        falseAnswer++;
-        /*$('#modalfalse').modal('show');*/
-        /*basla();*/
+        wrongAnswer++;
+        $("#wrongAnswer").text(wrongAnswer);
+        $('#modalWrong').modal('show');
+        $("#modalWrong .modal-body").html(`<p>Wrong answer! Correct one is ${questionInt}</p>`)
+        $("#txtAnswer").val("");
+        start();
     }
-});
+}
 
-$("#btnStop").click(function bitir() {
+$("#btnSend").click(send);
+
+function stop() {
 
     clearInterval(intervalId);
 
-    let minutes = $("#minutes");
-    let seconds = $("#seconds");   
-
-    //$("#resultBody").text(`${minutes}.${seconds} zamanda,\n
-    //${trueAnswer} doğru, ${falseAnswer} yanlış cevap verdin!\n
-    //Tekrar denemek ister misin?`);
-
-    //$("#modalClose").click(firstStart());
-    //$("#modalRestart").click(basla());
+    let minutes = $("#minutes").text();
+    let seconds = $("#seconds").text();
 
     $('#result').modal('show');
+
+    $("#result .modal-body").html(`<p>In ${minutes} minutes ${seconds} seconds, ${correctAnswer} correct, ${wrongAnswer} wrong answers!</p>`);
+
+    $("#modalClose").click(function () {
+        $('#result').modal('hide');
+        firstStart();
+    });
 
     $("#btnStart").prop("disabled", false);
     $("#btnStop").prop("disabled", true);
     $("#btnSend").prop("disabled", true);
     $("#txtAnswer").prop("disabled", true);
 
-    
+
     $("#minutes").text("00");
     $("#seconds").text("00");
-    trueAnswer = 0;
-    falseAnswer = 0;
-});
+    $("#correctAnswer").text("0");
+    $("#wrongAnswer").text("0");
+    $("#txtQuestion").text("");
+    $("#txtAnswer").val("");
+
+    firstStart();
+}
+
+$("#btnStop").click(stop);

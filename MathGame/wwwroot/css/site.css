@@ -52,13 +52,13 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.counterTrue {
+.counterCorrect {
     background-color: seagreen;
     font-size: 100px;
     color: white;
     width: 200px;
 }
-.counterFalse {
+.counterWrong {
     background-color: red;
     font-size: 100px;
     color: white;
@@ -67,5 +67,10 @@ input::-webkit-inner-spin-button {
 
 button {
     width: 150px;
+}
+
+#coderet {
+    text-decoration: none;
+    color: #c74634;
 }
 
